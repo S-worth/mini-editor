@@ -1,0 +1,38 @@
+/*
+ * Create by weiganyi on 20131107
+ */
+
+.toolbar
+{
+}
+
+a
+{
+	text-decoration: none;
+}
+
+.button
+{
+}
+
+.font_menu
+{
+}
+
+.font_menu_head
+{
+}
+
+.font_menu_list
+{
+	display: none;
+	position: absolute;
+	left: 80px;
+	top: 20px;
+	list-style-type: none;
+}
+
+.font_menu_item
+{
+}
+
