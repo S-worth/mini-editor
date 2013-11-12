@@ -4,6 +4,7 @@
 
 .toolbar
 {
+	background-color: white;
 }
 
 a
@@ -13,6 +14,9 @@ a
 
 .button
 {
+	padding: 8px 0px 0px 0px;
+	border-width: 1px;
+	border-style: none;
 }
 
 .font_menu
@@ -27,12 +31,21 @@ a
 {
 	display: none;
 	position: absolute;
-	left: 80px;
-	top: 20px;
+	left: 100px;
+	top: 24px;
 	list-style-type: none;
+	border-style: solid;
+	border-width: 1px;
+	text-align: left;
+	padding: 0px;
 }
 
 .font_menu_item
+{
+	padding: 0px 10px 0px 10px;
+}
+
+.font_menu_link
 {
 }
 
