@@ -7,27 +7,27 @@
 	background-color: white;
 }
 
-a
+.me_toolbar a
 {
 	text-decoration: none;
 }
 
-a:link
+.me_toolbar a:link
 {
 	color: black;
 }
 
-a:visited
+.me_toolbar a:visited
 {
 	color: black;
 }
 
-a:hover
+.me_toolbar a:hover
 {
 	color: black;
 }
 
-a:active
+.me_toolbar a:active
 {
 	color: black;
 }
@@ -87,13 +87,13 @@ a:active
 	position: absolute;
 	z-index: 99;
 
-	left: 320px;
+	left: 330px;
 	top: 40px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
 	border-width: 1px;
-	padding: 0px 20px 0px 10px;		/*top right bottom left*/
+	padding: 0px 10px 0px 10px;		/*top right bottom left*/
 }
 
 .me_image_menu_row
@@ -111,6 +111,89 @@ a:active
 }
 
 .me_image_menu_button
+{
+	text-align: center;
+}
+
+.me_emoticon_menu
+{
+}
+
+.me_emoticon_menu_head
+{
+}
+
+.me_emoticon_menu_table
+{
+	display: none;
+	position: absolute;
+	z-index: 99;
+
+	left: 380px;
+	top: 40px;		/*set it in order to connect with font_menu_head*/
+
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	padding: 0px;	/*all*/
+}
+
+.me_emoticon_menu_row
+{
+	width: 200px;
+	height: 25px;
+}
+
+.me_emoticon_menu_cell
+{
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	border-width: 1px;
+}
+
+.me_emoticon_menu_link
+{
+}
+
+.me_table_menu
+{
+}
+
+.me_table_menu_head
+{
+}
+
+.me_table_menu_table
+{
+	display: none;
+	position: absolute;
+	z-index: 99;
+
+	left: 410px;
+	top: 40px;		/*set it in order to connect with font_menu_head*/
+
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	padding: 0px 10px 0px 10px;		/*top right bottom left*/
+}
+
+.me_table_menu_row
+{
+}
+
+.me_table_menu_label
+{
+	text-align: right;
+}
+
+.me_table_menu_content
+{
+	text-align: left;
+}
+
+.me_table_menu_button
 {
 	text-align: center;
 }

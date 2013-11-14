@@ -17,19 +17,19 @@ TOOLBAR_HTML = " \
     <img src=\"images/font.gif\"></img></a> \
 <ul class=\"me_font_menu_list\"> \
     <li class=\"me_font_menu_item\"> \
-        <a href=\"#\" menu_action=\"FontSize\" menu_size=\"7\" class=\"me_font_menu_link\">Title 1</a> \
+        <a href=\"#\" menu_action=\"FontSize\" font_size=\"7\" class=\"me_font_menu_link\">Title 1</a> \
     </li> \
     <li class=\"me_font_menu_item\"> \
-        <a href=\"#\" menu_action=\"FontSize\" menu_size=\"6\" class=\"me_font_menu_link\">Title 2</a> \
+        <a href=\"#\" menu_action=\"FontSize\" font_size=\"6\" class=\"me_font_menu_link\">Title 2</a> \
     </li> \
     <li class=\"me_font_menu_item\"> \
-        <a href=\"#\" menu_action=\"FontSize\" menu_size=\"5\" class=\"me_font_menu_link\">Title 3</a> \
+        <a href=\"#\" menu_action=\"FontSize\" font_size=\"5\" class=\"me_font_menu_link\">Title 3</a> \
     </li> \
     <li class=\"me_font_menu_item\"> \
-        <a href=\"#\" menu_action=\"FontSize\" menu_size=\"4\" class=\"me_font_menu_link\">Title 4</a> \
+        <a href=\"#\" menu_action=\"FontSize\" font_size=\"4\" class=\"me_font_menu_link\">Title 4</a> \
     </li> \
     <li class=\"me_font_menu_item\"> \
-        <a href=\"#\" menu_action=\"FontSize\" menu_size=\"3\" class=\"me_font_menu_link\">Text</a> \
+        <a href=\"#\" menu_action=\"FontSize\" font_size=\"3\" class=\"me_font_menu_link\">Text</a> \
     </li> \
 </ul> \
 </span> \
@@ -52,8 +52,8 @@ TOOLBAR_HTML = " \
     <img src=\"images/image.gif\"></img></a> \
 <table class=\"me_image_menu_table\"> \
     <tr class=\"me_image_menu_row\"> \
-        <td class=\"me_image_menu_label\"><label>picture address: <label/></td> \
-        <td class=\"me_image_menu_content\"><input type=\"text\" id=\"me_image_address\"/></td> \
+        <td class=\"me_image_menu_label\">picture address: </td> \
+        <td class=\"me_image_menu_content\"><input type=\"text\" id=\"me_image_address\" style=\"width:300px;\"/></td> \
     </tr> \
     <tr class=\"me_image_menu_row\"> \
         <td class=\"me_image_menu_button\"><input type=\"button\" id=\"me_image_insert\"/ value=\"Insert\"></td> \
@@ -63,10 +63,178 @@ TOOLBAR_HTML = " \
 </span> \
 <a href=\"#\" title=\"RemoveFormat\" btn_action=\"RemoveFormat\" class=\"me_command\"> \
     <img src=\"images/removeformat.gif\"></img></a> \
-<a href=\"#\" title=\"emoticon\" btn_action=\"emoticon\" class=\"me_command\"> \
+<span class=\"me_emoticon_menu\"> \
+<a href=\"#\" class=\"me_emoticon_menu_head me_command\"> \
     <img src=\"images/emoticon.gif\"></img></a> \
-<a href=\"#\" title=\"table\" btn_action=\"table\" class=\"me_command\"> \
+<table class=\"me_emoticon_menu_table\"> \
+    <tr class=\"me_emoticon_menu_row\"> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/1.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/2.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/3.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/4.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/5.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/6.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/7.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/8.gif\"></img></a> \
+        </td> \
+    </tr> \
+    <tr class=\"me_emoticon_menu_row\"> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/9.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/10.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/11.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/12.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/13.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/14.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/15.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/16.gif\"></img></a> \
+        </td> \
+    </tr> \
+    <tr class=\"me_emoticon_menu_row\"> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/17.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/18.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/19.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/20.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/21.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/22.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/23.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/24.gif\"></img></a> \
+        </td> \
+    </tr> \
+    <tr class=\"me_emoticon_menu_row\"> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/25.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/26.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/27.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/28.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/29.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/30.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/31.gif\"></img></a> \
+        </td> \
+        <td class=\"me_emoticon_menu_cell\"> \
+            <a href=\"#\" menu_action=\"InsertImage\" class=\"me_emoticon_menu_link\"> \
+                <img src=\"images/emoticons/32.gif\"></img></a> \
+        </td> \
+    </tr> \
+</table> \
+</span> \
+<span class=\"me_table_menu\"> \
+<a href=\"#\" class=\"me_table_menu_head me_command\"> \
     <img src=\"images/table.gif\"></img></a> \
+<table class=\"me_table_menu_table\"> \
+    <tr class=\"me_table_menu_row\"> \
+        <td class=\"me_table_menu_label\">row number: </td> \
+        <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_row\" style=\"width:100px;\"/></td> \
+    </tr> \
+    <tr class=\"me_table_menu_row\"> \
+        <td class=\"me_table_menu_label\">column number: </td> \
+        <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_column\" style=\"width:100px;\"/></td> \
+    </tr> \
+    <tr class=\"me_table_menu_row\"> \
+        <td class=\"me_table_menu_label\">width: </td> \
+        <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_width\" style=\"width:100px;\"/></td> \
+    </tr> \
+    <tr class=\"me_table_menu_row\"> \
+        <td class=\"me_table_menu_label\">height: </td> \
+        <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_height\" style=\"width:100px;\"/></td> \
+    </tr> \
+    <tr class=\"me_table_menu_row\"> \
+        <td class=\"me_table_menu_label\">border width: </td> \
+        <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_border\" style=\"width:100px;\"/></td> \
+    </tr> \
+    <tr class=\"me_table_menu_row\"> \
+        <td class=\"me_table_menu_button\"><input type=\"button\" id=\"me_table_insert\"/ value=\"Insert\"></td> \
+        <td class=\"me_table_menu_button\"><input type=\"button\" id=\"me_table_clear\"/ value=\"Clear\"></td> \
+    </tr> \
+</table> \
+</span> \
 </div> \
 ";
 
@@ -78,6 +246,10 @@ jQuery.fn.mini_editor =
 
     win : null,
     doc : null,
+
+    is_msie: false,
+    is_firefox: false,
+    is_chrome: false,
 
     save_options : function(options)
     {
@@ -108,6 +280,21 @@ jQuery.fn.mini_editor =
         this.doc.close();
         this.win.focus();
 
+        //check browser type
+        broswer = navigator.userAgent;
+        if (broswer.search(/msie/gi) != -1)
+        {
+            this.is_msie = true;
+        }
+        else if (broswer.search(/firefox/gi) != -1)
+        {
+            this.is_firefox = true;
+        }
+        else if (broswer.search(/chrome/gi) != -1)
+        {
+            this.is_chrome = true;
+        }
+
         return this;
     },
 
@@ -116,12 +303,12 @@ jQuery.fn.mini_editor =
         if (toolbar)
         {
             link_list = toolbar.find(".me_font_menu_link");
-            length = link_list.length;
-            for (var idx=0; idx<length; idx++)
+            link_number = link_list.length;
+            for (var idx=0; idx<link_number; idx++)
             {
                 //convert html fragment to jquery object
                 obj = $(link_list[idx]);
-                size = obj.attr("menu_size");
+                size = obj.attr("font_size");
                 //calculate the px of the font menu link text
                 str_size = String(Number(size)*2+10) + "px";
                 obj.css("font-size", str_size);
@@ -178,6 +365,13 @@ jQuery.fn.mini_editor =
         return this;
     },
 
+    link_prompt : function()
+    {
+        value = prompt("please input the link address:", "http://");
+
+        return value;
+    },
+
     font_menu_mouseenter : function()
     {
         $(".me_font_menu_list").css("display", "block");
@@ -214,13 +408,13 @@ jQuery.fn.mini_editor =
         obj = $(this);
 
         menu_action = obj.attr("menu_action");
-        menu_size = obj.attr("menu_size");
+        font_size = obj.attr("font_size");
 
         win = obj.mini_editor.win;
         doc = obj.mini_editor.doc;
 
         win.focus();
-        doc.execCommand(menu_action, false, menu_size);
+        doc.execCommand(menu_action, false, font_size);
         win.focus();
 
         //close the me_font_menu_list display
@@ -285,11 +479,179 @@ jQuery.fn.mini_editor =
         return this;
     },
 
-    link_prompt : function()
+    emoticon_menu_mouseenter : function()
     {
-        value = prompt("please input the link address:", "http://");
+        $(".me_emoticon_menu_table").css("display", "block");
 
-        return value;
+        return this;
+    },
+
+    emoticon_menu_mouseleave : function()
+    {
+        $(".me_emoticon_menu_table").css("display", "none");
+
+        return this;
+    },
+
+    emoticon_menu_cell_mouseenter : function()
+    {
+        obj = $(this);
+        obj.css("border-style", "solid");
+
+        return this;
+    },
+
+    emoticon_menu_cell_mouseleave : function()
+    {
+        obj = $(this);
+        obj.css("border-style", "none");
+
+        return this;
+    },
+
+    emoticon_menu_link_click : function()
+    {
+        //this pointer is the html fragment that been clicked
+        obj = $(this);
+
+        win = obj.mini_editor.win;
+        doc = obj.mini_editor.doc;
+
+        img = obj.find("img");
+        if (img)
+        {
+            image_address = img.attr("src");
+        }
+
+        win.focus();
+        doc.execCommand("InsertImage", false, image_address);
+        win.focus();
+
+        //close the me_emoticon_menu_table display
+        $(".me_emoticon_menu_table").css("display", "none");
+
+        return this;
+    },
+
+    table_menu_mouseenter : function()
+    {
+        $(".me_table_menu_table").css("display", "block");
+
+        return this;
+    },
+
+    table_menu_mouseleave : function()
+    {
+        $(".me_table_menu_table").css("display", "none");
+
+        return this;
+    },
+
+    table_insert_click : function()
+    {
+        //this pointer is the html fragment that been clicked
+        obj = $(this);
+
+        win = obj.mini_editor.win;
+        doc = obj.mini_editor.doc;
+
+        row = $("#me_table_row").val();
+        column = $("#me_table_column").val();
+        width = $("#me_table_width").val();
+        height = $("#me_table_height").val();
+        border = $("#me_table_border").val();
+
+        win.focus();
+        //get the select range object
+        if (obj.mini_editor.is_msie == true)
+        {
+            range = obj.mini_editor.doc.selection.createRange();
+        }
+        else if (obj.mini_editor.is_firefox == true || (obj.mini_editor.is_chrome == true))
+        {
+            range = obj.mini_editor.doc.getSelection().getRangeAt(0);
+        }
+        else
+        {
+            return this;
+        }
+
+        //create the table object
+        table_object = $("<div><table></table></div>");
+        for (idx=0; idx<row; idx++)
+        {
+            table_object.find("table").append("<tr></tr>");
+        }
+        for (idx=0; idx<column; idx++)
+        {
+            table_object.find("table").find("tr").append("<td></td>");
+        }
+
+        //set the table css
+        table_object.find("table").css("border-collapse", "collapse");
+
+        if (Number(width) >= 1)
+        {
+            width_value = width+"px";
+        }
+        else
+        {
+            width_value = width+"100px";
+        }
+        table_object.find("table").find("tr").find("td").css("width", width_value);
+
+        if (Number(height) >= 1)
+        {
+            height_value = height+"px";
+        }
+        else
+        {
+            height_value = height+"20px";
+        }
+        table_object.find("table").find("tr").find("td").css("height", height_value);
+
+        if (Number(border) >= 1)
+        {
+            border_value = border+"px solid black";
+        }
+        else
+        {
+            border_value = border+"1px solid black";
+        }
+        table_object.find("table").css("border", border_value);
+        table_object.find("table").find("tr").css("border", border_value);
+        table_object.find("table").find("tr").find("td").css("border", border_value);
+
+        //insert the table object into the range
+        if (obj.mini_editor.is_msie == true)
+        {
+            range.pasteHTML(table_object.html());
+        }
+        else if (obj.mini_editor.is_firefox == true || (obj.mini_editor.is_chrome == true))
+        {
+            range.insertNode(table_object.find("table")[0]);
+        }
+        win.focus();
+
+        //close the me_table_menu_table display
+        $(".me_table_menu_table").css("display", "none");
+
+        return this;
+    },
+
+    table_clear_click : function()
+    {
+        $("#me_table_row").val("");
+        $("#me_table_column").val("");
+        $("#me_table_width").val("");
+        $("#me_table_height").val("");
+        $("#me_table_border").val("");
+        $("#me_table_title").val("");
+
+        //close the me_table_menu_table display
+        $(".me_table_menu_table").css("display", "none");
+
+        return this;
     },
 
     padding : null
@@ -310,11 +672,13 @@ jQuery.fn.mini_editor_create = function(options)
     this.mini_editor.decorate_font_menu_link(toolbar);
 
     //register event function
+    //me_command event
     toolbar.find(".me_command").bind("mouseenter", this.mini_editor.command_mouseenter);
     toolbar.find(".me_command").bind("mouseleave", this.mini_editor.command_mouseleave);
 
     toolbar.find(".me_command").bind("click", this.mini_editor.command_click);
 
+    //me_font_menu event
     toolbar.find(".me_font_menu").bind("mouseenter", this.mini_editor.font_menu_mouseenter);
     toolbar.find(".me_font_menu").bind("mouseleave", this.mini_editor.font_menu_mouseleave);
 
@@ -323,11 +687,28 @@ jQuery.fn.mini_editor_create = function(options)
 
     toolbar.find(".me_font_menu_link").bind("click", this.mini_editor.font_menu_link_click);
 
+    //me_image_menu event
     toolbar.find(".me_image_menu").bind("mouseenter", this.mini_editor.image_menu_mouseenter);
     toolbar.find(".me_image_menu").bind("mouseleave", this.mini_editor.image_menu_mouseleave);
 
     toolbar.find("#me_image_insert").bind("click", this.mini_editor.image_insert_click);
     toolbar.find("#me_image_clear").bind("click", this.mini_editor.image_clear_click);
+
+    //me_emoticon_menu event
+    toolbar.find(".me_emoticon_menu").bind("mouseenter", this.mini_editor.emoticon_menu_mouseenter);
+    toolbar.find(".me_emoticon_menu").bind("mouseleave", this.mini_editor.emoticon_menu_mouseleave);
+
+    toolbar.find(".me_emoticon_menu_cell").bind("mouseenter", this.mini_editor.emoticon_menu_cell_mouseenter);
+    toolbar.find(".me_emoticon_menu_cell").bind("mouseleave", this.mini_editor.emoticon_menu_cell_mouseleave);
+
+    toolbar.find(".me_emoticon_menu_link").bind("click", this.mini_editor.emoticon_menu_link_click);
+
+    //me_table_menu event
+    toolbar.find(".me_table_menu").bind("mouseenter", this.mini_editor.table_menu_mouseenter);
+    toolbar.find(".me_table_menu").bind("mouseleave", this.mini_editor.table_menu_mouseleave);
+
+    toolbar.find("#me_table_insert").bind("click", this.mini_editor.table_insert_click);
+    toolbar.find("#me_table_clear").bind("click", this.mini_editor.table_clear_click);
 
     //add toolbar before the iframe
     this.before(toolbar);
