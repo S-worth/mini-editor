@@ -5,13 +5,13 @@
 var contury_lang = [];
 contury_lang["Bold"] = "粗体"
 contury_lang["Italic"] = "斜体";
-contury_lang["Underline"] = "下划线";
-contury_lang["StrikeThrough"] = "删除线";
+contury_lang["Underline"] = "下划�?;
+contury_lang["StrikeThrough"] = "删除�?;
 contury_lang["InsertOrderedList"] = "插入有序列表";
 contury_lang["InsertUnorderedList"] = "插入无序列表";
 contury_lang["Indent"] = "缩进";
 contury_lang["Outdent"] = "凸排";
-contury_lang["InsertHorizontalRule"] = "插入水平线";
+contury_lang["InsertHorizontalRule"] = "插入水平�?;
 contury_lang["CreateLink"] = "创建链接";
 contury_lang["Unlink"] = "取消链接";
 contury_lang["RemoveFormat"] = "清除格式";
@@ -22,7 +22,7 @@ contury_lang["row number"] = "行数";
 contury_lang["column number"] = "列数";
 contury_lang["width"] = "宽度";
 contury_lang["height"] = "高度";
-contury_lang["border width"] = "边框大小";
+contury_lang["border"] = "边框大小";
 contury_lang["Insert"] = "插入";
 contury_lang["Clear"] = "清空";
 

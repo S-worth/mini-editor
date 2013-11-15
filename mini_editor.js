@@ -226,7 +226,7 @@ var TOOLBAR_HTML = " \
         <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_height\" style=\"width:100px;\"/></td> \
     </tr> \
     <tr class=\"me_table_menu_row\"> \
-        <td class=\"me_table_menu_label\">border width: </td> \
+        <td class=\"me_table_menu_label\">border: </td> \
         <td class=\"me_table_menu_content\"><input type=\"text\" id=\"me_table_border\" style=\"width:100px;\"/></td> \
     </tr> \
     <tr class=\"me_table_menu_row\"> \
@@ -398,6 +398,30 @@ jQuery.fn.mini_editor =
             toolbar_html = toolbar_html.replace(/title="Unlink"/g, replace_value);
             replace_value = "title=\"" + contury_lang["RemoveFormat"] + "\"";
             toolbar_html = toolbar_html.replace(/title="RemoveFormat"/g, replace_value);
+
+            replace_value = contury_lang["Title"];
+            toolbar_html = toolbar_html.replace(/Title/g, replace_value);
+            replace_value = contury_lang["Text"];
+            toolbar_html = toolbar_html.replace(/Text/g, replace_value);
+
+            replace_value = contury_lang["picture address"];
+            toolbar_html = toolbar_html.replace(/picture address/g, replace_value);
+
+            replace_value = contury_lang["row number"];
+            toolbar_html = toolbar_html.replace(/row number/g, replace_value);
+            replace_value = contury_lang["column number"];
+            toolbar_html = toolbar_html.replace(/column number/g, replace_value);
+            replace_value = contury_lang["width"];
+            toolbar_html = toolbar_html.replace(/width/g, replace_value);
+            replace_value = contury_lang["height"];
+            toolbar_html = toolbar_html.replace(/height/g, replace_value);
+            replace_value = contury_lang["border"];
+            toolbar_html = toolbar_html.replace(/border/g, replace_value);
+
+            replace_value = contury_lang["Insert"];
+            toolbar_html = toolbar_html.replace(/Insert/g, replace_value);
+            replace_value = contury_lang["Clear"];
+            toolbar_html = toolbar_html.replace(/Clear/g, replace_value);
         }
 
         return toolbar_html;

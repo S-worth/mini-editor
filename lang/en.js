@@ -24,5 +24,5 @@ contury_lang["row number"] = "row number";
 contury_lang["column number"] = "column number";
 contury_lang["width"] = "width";
 contury_lang["height"] = "height";
-contury_lang["border width"] = "border width";
+contury_lang["border"] = "border width";
 
