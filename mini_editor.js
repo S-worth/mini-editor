@@ -2,7 +2,7 @@
  * Create by weiganyi on 20131107
  */
 
-TOOLBAR_HTML = " \
+var TOOLBAR_HTML = " \
 <div class=\"me_toolbar\"> \
 <a href=\"#\" title=\"Bold\" btn_action=\"Bold\" class=\"me_command\"> \
     <img src=\"images/bold.gif\"></img></a> \
@@ -240,7 +240,7 @@ TOOLBAR_HTML = " \
 
 jQuery.fn.mini_editor = 
 {
-    options_list : {lang:"EN"},
+    options_list : {lang:"en"},
 
     editor : null,
 
@@ -264,7 +264,7 @@ jQuery.fn.mini_editor =
         return this;
     },
 
-    enable_editor : function(editor)
+    init_editor : function(editor)
     {
         this.editor = editor;
 
@@ -281,7 +281,7 @@ jQuery.fn.mini_editor =
         this.win.focus();
 
         //check browser type
-        broswer = navigator.userAgent;
+        var broswer = navigator.userAgent;
         if (broswer.search(/msie/gi) != -1)
         {
             this.is_msie = true;
@@ -295,22 +295,127 @@ jQuery.fn.mini_editor =
             this.is_chrome = true;
         }
 
+        //import the contury js
+        var head = document.getElementsByTagName("head")[0];
+        var script = document.createElement("script");
+        script.src = "lang/"  + this.options_list["lang"] + ".js";
+        script.charset = "UTF-8";
+        script.type = "text/javascript";
+        script.onload = script.onreadystatechange = function ()
+        {
+            if (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete')
+            {
+                $(this).mini_editor.add_toolbar();
+                script.onload = script.onreadystatechange = null;
+            };
+        };
+        head.appendChild(script);
+
         return this;
+    },
+
+    add_toolbar : function()
+    {
+        //apply the contury language configed for all toolbar display
+        TOOLBAR_HTML = this.apply_contury_language(TOOLBAR_HTML);
+
+        //create toolbar object
+        var toolbar = $(TOOLBAR_HTML);
+
+        //decorate the font menu link
+        this.decorate_font_menu_link(toolbar);
+
+        //register event function
+        //me_command event
+        toolbar.find(".me_command").bind("mouseenter", this.command_mouseenter);
+        toolbar.find(".me_command").bind("mouseleave", this.command_mouseleave);
+
+        toolbar.find(".me_command").bind("click", this.command_click);
+
+        //me_font_menu event
+        toolbar.find(".me_font_menu").bind("mouseenter", this.font_menu_mouseenter);
+        toolbar.find(".me_font_menu").bind("mouseleave", this.font_menu_mouseleave);
+
+        toolbar.find(".me_font_menu_item").bind("mouseenter", this.font_menu_item_mouseenter);
+        toolbar.find(".me_font_menu_item").bind("mouseleave", this.font_menu_item_mouseleave);
+
+        toolbar.find(".me_font_menu_link").bind("click", this.font_menu_link_click);
+
+        //me_image_menu event
+        toolbar.find(".me_image_menu").bind("mouseenter", this.image_menu_mouseenter);
+        toolbar.find(".me_image_menu").bind("mouseleave", this.image_menu_mouseleave);
+
+        toolbar.find("#me_image_insert").bind("click", this.image_insert_click);
+        toolbar.find("#me_image_clear").bind("click", this.image_clear_click);
+
+        //me_emoticon_menu event
+        toolbar.find(".me_emoticon_menu").bind("mouseenter", this.emoticon_menu_mouseenter);
+        toolbar.find(".me_emoticon_menu").bind("mouseleave", this.emoticon_menu_mouseleave);
+
+        toolbar.find(".me_emoticon_menu_cell").bind("mouseenter", this.emoticon_menu_cell_mouseenter);
+        toolbar.find(".me_emoticon_menu_cell").bind("mouseleave", this.emoticon_menu_cell_mouseleave);
+
+        toolbar.find(".me_emoticon_menu_link").bind("click", this.emoticon_menu_link_click);
+
+        //me_table_menu event
+        toolbar.find(".me_table_menu").bind("mouseenter", this.table_menu_mouseenter);
+        toolbar.find(".me_table_menu").bind("mouseleave", this.table_menu_mouseleave);
+
+        toolbar.find("#me_table_insert").bind("click", this.table_insert_click);
+        toolbar.find("#me_table_clear").bind("click", this.table_clear_click);
+
+        //add toolbar before the iframe
+        this.editor.before(toolbar);
+    },
+
+    apply_contury_language : function(toolbar_html)
+    {
+        if (toolbar_html)
+        {
+            var replace_value = "";
+
+            replace_value = "title=\"" + contury_lang["Bold"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="Bold"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["Italic"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="Italic"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["Underline"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="Underline"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["StrikeThrough"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="StrikeThrough"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["InsertOrderedList"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="InsertOrderedList"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["InsertUnorderedList"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="InsertUnorderedList"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["Indent"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="Indent"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["Outdent"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="Outdent"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["InsertHorizontalRule"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="InsertHorizontalRule"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["CreateLink"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="CreateLink"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["Unlink"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="Unlink"/g, replace_value);
+            replace_value = "title=\"" + contury_lang["RemoveFormat"] + "\"";
+            toolbar_html = toolbar_html.replace(/title="RemoveFormat"/g, replace_value);
+        }
+
+        return toolbar_html;
     },
 
     decorate_font_menu_link : function(toolbar)
     {
         if (toolbar)
         {
-            link_list = toolbar.find(".me_font_menu_link");
-            link_number = link_list.length;
+            var link_list = toolbar.find(".me_font_menu_link");
+            var link_number = link_list.length;
             for (var idx=0; idx<link_number; idx++)
             {
                 //convert html fragment to jquery object
-                obj = $(link_list[idx]);
-                size = obj.attr("font_size");
+                var obj = $(link_list[idx]);
+                var font_size = obj.attr("font_size");
                 //calculate the px of the font menu link text
-                str_size = String(Number(size)*2+10) + "px";
+                var str_size = String(Number(font_size)*2+10) + "px";
                 obj.css("font-size", str_size);
             }
         }
@@ -320,7 +425,7 @@ jQuery.fn.mini_editor =
 
     command_mouseenter : function()
     {
-        obj = $(this);
+        var obj = $(this);
         obj.css("border-style", "solid");
 
         return this;
@@ -337,10 +442,10 @@ jQuery.fn.mini_editor =
     command_click : function()
     {
         //this pointer is the html fragment that been clicked
-        obj = $(this);
-        param = null;
+        var obj = $(this);
+        var param = null;
 
-        btn_action = obj.attr("btn_action");
+        var btn_action = obj.attr("btn_action");
 
         //prompt user to input link address
         if (btn_action == "CreateLink")
@@ -348,8 +453,8 @@ jQuery.fn.mini_editor =
             param = obj.mini_editor.link_prompt();
         }
 
-        win = obj.mini_editor.win;
-        doc = obj.mini_editor.doc;
+        var win = obj.mini_editor.win;
+        var doc = obj.mini_editor.doc;
 
         win.focus();
         if (param)
@@ -367,7 +472,7 @@ jQuery.fn.mini_editor =
 
     link_prompt : function()
     {
-        value = prompt("please input the link address:", "http://");
+        var value = prompt("please input the link address:", "http://");
 
         return value;
     },
@@ -388,7 +493,7 @@ jQuery.fn.mini_editor =
 
     font_menu_item_mouseenter : function()
     {
-        obj = $(this);
+        var obj = $(this);
         obj.css("background-color", "gray");
 
         return this;
@@ -396,7 +501,7 @@ jQuery.fn.mini_editor =
 
     font_menu_item_mouseleave : function()
     {
-        obj = $(this);
+        var obj = $(this);
         obj.css("background-color", "white");
 
         return this;
@@ -405,13 +510,13 @@ jQuery.fn.mini_editor =
     font_menu_link_click : function()
     {
         //this pointer is the html fragment that been clicked
-        obj = $(this);
+        var obj = $(this);
 
-        menu_action = obj.attr("menu_action");
-        font_size = obj.attr("font_size");
+        var menu_action = obj.attr("menu_action");
+        var font_size = obj.attr("font_size");
 
-        win = obj.mini_editor.win;
-        doc = obj.mini_editor.doc;
+        var win = obj.mini_editor.win;
+        var doc = obj.mini_editor.doc;
 
         win.focus();
         doc.execCommand(menu_action, false, font_size);
@@ -439,7 +544,7 @@ jQuery.fn.mini_editor =
 
     image_insert_click : function()
     {
-        image_address = $("#me_image_address").val();
+        var image_address = $("#me_image_address").val();
 
         //translate char "\" to char "/"
         if (image_address.search(/\\/g) != -1)
@@ -454,10 +559,10 @@ jQuery.fn.mini_editor =
         }
 
         //this pointer is the html fragment that been clicked
-        obj = $(this);
+        var obj = $(this);
 
-        win = obj.mini_editor.win;
-        doc = obj.mini_editor.doc;
+        var win = obj.mini_editor.win;
+        var doc = obj.mini_editor.doc;
 
         win.focus();
         doc.execCommand("InsertImage", false, image_address);
@@ -495,7 +600,7 @@ jQuery.fn.mini_editor =
 
     emoticon_menu_cell_mouseenter : function()
     {
-        obj = $(this);
+        var obj = $(this);
         obj.css("border-style", "solid");
 
         return this;
@@ -503,7 +608,7 @@ jQuery.fn.mini_editor =
 
     emoticon_menu_cell_mouseleave : function()
     {
-        obj = $(this);
+        var obj = $(this);
         obj.css("border-style", "none");
 
         return this;
@@ -512,15 +617,15 @@ jQuery.fn.mini_editor =
     emoticon_menu_link_click : function()
     {
         //this pointer is the html fragment that been clicked
-        obj = $(this);
+        var obj = $(this);
 
-        win = obj.mini_editor.win;
-        doc = obj.mini_editor.doc;
+        var win = obj.mini_editor.win;
+        var doc = obj.mini_editor.doc;
 
-        img = obj.find("img");
+        var img = obj.find("img");
         if (img)
         {
-            image_address = img.attr("src");
+            var image_address = img.attr("src");
         }
 
         win.focus();
@@ -550,26 +655,26 @@ jQuery.fn.mini_editor =
     table_insert_click : function()
     {
         //this pointer is the html fragment that been clicked
-        obj = $(this);
+        var obj = $(this);
 
-        win = obj.mini_editor.win;
-        doc = obj.mini_editor.doc;
+        var win = obj.mini_editor.win;
+        var doc = obj.mini_editor.doc;
 
-        row = $("#me_table_row").val();
-        column = $("#me_table_column").val();
-        width = $("#me_table_width").val();
-        height = $("#me_table_height").val();
-        border = $("#me_table_border").val();
+        var row = $("#me_table_row").val();
+        var column = $("#me_table_column").val();
+        var width = $("#me_table_width").val();
+        var height = $("#me_table_height").val();
+        var border = $("#me_table_border").val();
 
         win.focus();
         //get the select range object
         if (obj.mini_editor.is_msie == true)
         {
-            range = obj.mini_editor.doc.selection.createRange();
+            var range = obj.mini_editor.doc.selection.createRange();
         }
         else if (obj.mini_editor.is_firefox == true || (obj.mini_editor.is_chrome == true))
         {
-            range = obj.mini_editor.doc.getSelection().getRangeAt(0);
+            var range = obj.mini_editor.doc.getSelection().getRangeAt(0);
         }
         else
         {
@@ -577,7 +682,7 @@ jQuery.fn.mini_editor =
         }
 
         //create the table object
-        table_object = $("<div><table></table></div>");
+        var table_object = $("<div><table></table></div>");
         for (idx=0; idx<row; idx++)
         {
             table_object.find("table").append("<tr></tr>");
@@ -592,31 +697,31 @@ jQuery.fn.mini_editor =
 
         if (Number(width) >= 1)
         {
-            width_value = width+"px";
+            var width_value = width+"px";
         }
         else
         {
-            width_value = width+"100px";
+            var width_value = width+"100px";
         }
         table_object.find("table").find("tr").find("td").css("width", width_value);
 
         if (Number(height) >= 1)
         {
-            height_value = height+"px";
+            var height_value = height+"px";
         }
         else
         {
-            height_value = height+"20px";
+            var height_value = height+"20px";
         }
         table_object.find("table").find("tr").find("td").css("height", height_value);
 
         if (Number(border) >= 1)
         {
-            border_value = border+"px solid black";
+            var border_value = border+"px solid black";
         }
         else
         {
-            border_value = border+"1px solid black";
+            var border_value = border+"1px solid black";
         }
         table_object.find("table").css("border", border_value);
         table_object.find("table").find("tr").css("border", border_value);
@@ -662,56 +767,8 @@ jQuery.fn.mini_editor_create = function(options)
     //save options
     this.mini_editor.save_options(options);
 
-    //enable this iframe to edit
-    this.mini_editor.enable_editor(this);
-
-    //create toolbar object
-    toolbar = $(TOOLBAR_HTML);
-
-    //decorate the font menu link
-    this.mini_editor.decorate_font_menu_link(toolbar);
-
-    //register event function
-    //me_command event
-    toolbar.find(".me_command").bind("mouseenter", this.mini_editor.command_mouseenter);
-    toolbar.find(".me_command").bind("mouseleave", this.mini_editor.command_mouseleave);
-
-    toolbar.find(".me_command").bind("click", this.mini_editor.command_click);
-
-    //me_font_menu event
-    toolbar.find(".me_font_menu").bind("mouseenter", this.mini_editor.font_menu_mouseenter);
-    toolbar.find(".me_font_menu").bind("mouseleave", this.mini_editor.font_menu_mouseleave);
-
-    toolbar.find(".me_font_menu_item").bind("mouseenter", this.mini_editor.font_menu_item_mouseenter);
-    toolbar.find(".me_font_menu_item").bind("mouseleave", this.mini_editor.font_menu_item_mouseleave);
-
-    toolbar.find(".me_font_menu_link").bind("click", this.mini_editor.font_menu_link_click);
-
-    //me_image_menu event
-    toolbar.find(".me_image_menu").bind("mouseenter", this.mini_editor.image_menu_mouseenter);
-    toolbar.find(".me_image_menu").bind("mouseleave", this.mini_editor.image_menu_mouseleave);
-
-    toolbar.find("#me_image_insert").bind("click", this.mini_editor.image_insert_click);
-    toolbar.find("#me_image_clear").bind("click", this.mini_editor.image_clear_click);
-
-    //me_emoticon_menu event
-    toolbar.find(".me_emoticon_menu").bind("mouseenter", this.mini_editor.emoticon_menu_mouseenter);
-    toolbar.find(".me_emoticon_menu").bind("mouseleave", this.mini_editor.emoticon_menu_mouseleave);
-
-    toolbar.find(".me_emoticon_menu_cell").bind("mouseenter", this.mini_editor.emoticon_menu_cell_mouseenter);
-    toolbar.find(".me_emoticon_menu_cell").bind("mouseleave", this.mini_editor.emoticon_menu_cell_mouseleave);
-
-    toolbar.find(".me_emoticon_menu_link").bind("click", this.mini_editor.emoticon_menu_link_click);
-
-    //me_table_menu event
-    toolbar.find(".me_table_menu").bind("mouseenter", this.mini_editor.table_menu_mouseenter);
-    toolbar.find(".me_table_menu").bind("mouseleave", this.mini_editor.table_menu_mouseleave);
-
-    toolbar.find("#me_table_insert").bind("click", this.mini_editor.table_insert_click);
-    toolbar.find("#me_table_clear").bind("click", this.mini_editor.table_clear_click);
-
-    //add toolbar before the iframe
-    this.before(toolbar);
+    //initialize the iframe to editor
+    this.mini_editor.init_editor(this);
 
     return this;
 }
