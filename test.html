@@ -9,10 +9,14 @@
 </head>
 <body>
 <p>
-	<iframe src="" frameborder="0" id="editor" width="800" height="300" style="border:1px solid #ccc;"></iframe>
+	<iframe src="" frameborder="0" id="editor" name="editor" width="800" height="300" style="border:1px solid #ccc;"></iframe>
 </p>
 <script type="text/javascript">
-    $("#editor").mini_editor_create({lang:"ch", submit:"Submit Article", imagepage:"http://172.125.102.145/image.php"});
+    $("#editor").mini_editor_create({lang:"ch", 
+                                    submit:"Submit Article", 
+                                    imagepage:"http://172.125.102.146/image.php",
+                                    textpage:"http://172.125.102.146/text1.php",
+                                    maximg:10});
 </script>
 </body>
 </html>

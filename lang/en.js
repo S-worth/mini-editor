@@ -27,4 +27,4 @@ contury_lang["column number"] = "column number";
 contury_lang["width"] = "width";
 contury_lang["height"] = "height";
 contury_lang["border"] = "border width";
-contury_lang["Submit"] = "Submit";
+contury_lang["Submit"] = "Submit Article";

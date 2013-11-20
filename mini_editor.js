@@ -70,9 +70,9 @@ var TOOLBAR_HTML = " \
 <table id=\"me_nwk_image_menu_table\"> \
     <tr class=\"me_nwk_image_menu_row\"> \
         <iframe id=\"me_nwk_image_menu_frame\" name=\"me_nwk_image_menu_frame\"></iframe> \
-        <form method=\"post\" id=\"me_nwk_image_menu_form\" target=\"me_nwk_image_menu_frame\" enctype=\"multipart/form-data\" action=\"image.php\"> \
-            <td><input type=\"file\" id=\"me_nwk_image_menu_file\"\"/></td> \
-            <td><input type=\"button\" id=\"me_nwk_image_menu_upload\"/ value=\"Upload\"></td> \
+        <form method=\"post\" id=\"me_nwk_image_menu_form\" name=\"me_nwk_image_menu_form\" target=\"me_nwk_image_menu_frame\" enctype=\"multipart/form-data\" action=\"image.php\"> \
+            <td><input type=\"file\" id=\"me_nwk_image_menu_file\" name=\"me_nwk_image_menu_file\"></td> \
+            <td><input type=\"button\" id=\"me_nwk_image_menu_upload\" name=\"me_nwk_image_menu_upload\" value=\"Upload\"></td> \
         </form> \
     </tr> \
 </table> \
@@ -260,6 +260,7 @@ jQuery.fn.mini_editor =
     options_list : {lang:"en", 
                     submit:"Submit Article", 
                     imagepage:"image.php", 
+                    textpage:"text.php", 
                     maximg:10},
 
     //jquery object
@@ -414,17 +415,17 @@ jQuery.fn.mini_editor =
     {
         if (this.options_list["Submit"])
         {
-            submit_html = "<div><button type=\"button\">" + this.options_list["Submit"] + "</button></div>";
+            var submit_html = "<div><button type=\"button\">" + this.options_list["Submit"] + "</button></div>";
         }
         else
         {
-            submit_html = "<div><button type=\"button\">" + contury_lang["Submit"] + "</button></div>";
+            var submit_html = "<div><button type=\"button\">" + contury_lang["Submit"] + "</button></div>";
         }
-        submit = $(submit_html);
-        submit.bind("click", this.submit_click);
+        var submit_obj = $(submit_html);
+        submit_obj.bind("click", this.submit_click);
 
-        //add submit after the iframe
-        this.editor.after(submit);
+        //add submit_obj after the iframe
+        this.editor.after(submit_obj);
     },
 
     apply_contury_language : function(toolbar_html)
@@ -747,7 +748,8 @@ jQuery.fn.mini_editor =
         {
             post_addr = obj.mini_editor.options_list["imagepage"]
         }
-        var post_addr = post_addr + "?" + "image_name=" + image_base_name;
+        //add image name and timestamp to avoid submit repeadedly
+        var post_addr = post_addr + "?" + "image_name=" + image_base_name + "ts=" + Date();
         $("#me_nwk_image_menu_form").attr("action", post_addr);
 
         //submit the form
@@ -1058,32 +1060,36 @@ jQuery.fn.mini_editor =
         }
 
         //because the editor is a iframe, so we need get the html through DOM but not jquery
-        editor_html = obj.mini_editor.doc.body.innerHTML;
-        out_editor_html = editor_html;
+        var editor_html = obj.mini_editor.doc.body.innerHTML;
 
-        //the inserted image html pattern
-        image_pattern = "/<img src=\"file:///(.+)\">/g";
-
-        while((result = image_pattern.exec(editor_html)) != null)
+        if (editor_html && obj.mini_editor.options_list["textpage"])
         {
-            image_html = result[0];
-            image_address = result[1];
+            //construct the form object
+            var form_html = "<form method=\"post\" target=\"_blank\"></form>";
+            var form_obj = $(form_html);
+            var form_name = "me_" + obj.mini_editor.editor.attr("name") + "_form";
+            form_obj.attr("name", form_name);
+            //add timestamp to avoid submit repeadedly
+            var post_addr = obj.mini_editor.options_list["textpage"] + "?" + "ts=" + Date();
+            form_obj.attr("action", post_addr);
+            form_obj.attr("style", "display: none");
 
-            obj.mini_editor.create_image_iframe();
-            obj.mini_editor.submit_image_iframe();
+            //construct the textarea object
+            var text_html = "<textarea></textarea>";
+            var text_obj = $(text_html);
+            var text_name = "me_" + obj.mini_editor.editor.attr("name") + "_textarea";
+            text_obj.attr("name", text_name);
+            text_obj.html(editor_html);
+            form_obj.append(text_obj);
+
+            //add form_obj after the iframe
+            obj.mini_editor.editor.after(form_obj);
+
+            //submit the form jquery object
+            form_obj.submit();
         }
 
-        return this;
-    },
-
-    create_image_iframe : function()
-    {
-        return this;
-    },
-
-    submit_image_iframe : function()
-    {
-        return this;
+        return true;
     },
 
     padding : null
