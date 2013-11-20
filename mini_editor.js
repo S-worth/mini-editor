@@ -261,7 +261,8 @@ jQuery.fn.mini_editor =
                     submit:"Submit Article", 
                     imagepage:"image.php", 
                     textpage:"text.php", 
-                    maximg:10},
+                    maximg:10,
+                    callback:callback_sample},
 
     //jquery object
     editor : null,
@@ -275,7 +276,7 @@ jQuery.fn.mini_editor =
 
     //current image number
     curr_img: 0,
-    //inserted image src path
+    //the list of the src path for the inserted image
     img_src: [],
 
     save_options : function(options)
@@ -748,8 +749,10 @@ jQuery.fn.mini_editor =
         {
             post_addr = obj.mini_editor.options_list["imagepage"]
         }
+        var post_addr = post_addr + "?" + "image_name=" + image_base_name;
         //add image name and timestamp to avoid submit repeadedly
-        var post_addr = post_addr + "?" + "image_name=" + image_base_name + "ts=" + Date();
+        var now = new Date();
+        var post_addr = post_addr + "ts=" + now.getTime();
         $("#me_nwk_image_menu_form").attr("action", post_addr);
 
         //submit the form
@@ -1065,12 +1068,14 @@ jQuery.fn.mini_editor =
         if (editor_html && obj.mini_editor.options_list["textpage"])
         {
             //construct the form object
+            //var form_html = "<form method=\"post\" target=\"_self\"></form>";
             var form_html = "<form method=\"post\" target=\"_blank\"></form>";
             var form_obj = $(form_html);
             var form_name = "me_" + obj.mini_editor.editor.attr("name") + "_form";
             form_obj.attr("name", form_name);
             //add timestamp to avoid submit repeadedly
-            var post_addr = obj.mini_editor.options_list["textpage"] + "?" + "ts=" + Date();
+            var now = new Date();
+            var post_addr = obj.mini_editor.options_list["textpage"] + "?" + "ts=" + now.getTime();
             form_obj.attr("action", post_addr);
             form_obj.attr("style", "display: none");
 
@@ -1084,6 +1089,12 @@ jQuery.fn.mini_editor =
 
             //add form_obj after the iframe
             obj.mini_editor.editor.after(form_obj);
+
+            //exec the callback function
+            if (obj.mini_editor.options_list["callback"])
+            {
+                obj.mini_editor.options_list["callback"]();
+            }
 
             //submit the form jquery object
             form_obj.submit();
@@ -1104,5 +1115,10 @@ jQuery.fn.mini_editor_create = function(options)
     this.mini_editor.init_editor(this);
 
     return this;
+}
+
+function callback_sample()
+{
+    return true;
 }
 
