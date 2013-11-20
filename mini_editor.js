@@ -3,7 +3,7 @@
  */
 
 var TOOLBAR_HTML = " \
-<div class=\"me_toolbar\"> \
+<div id=\"me_toolbar\"> \
 <a href=\"#\" title=\"Bold\" btn_action=\"Bold\" class=\"me_command\"> \
     <img src=\"images/bold.gif\"></img></a> \
 <a href=\"#\" title=\"Italic\" btn_action=\"Italic\" class=\"me_command\"> \
@@ -258,11 +258,10 @@ jQuery.fn.mini_editor =
 {
     //config options list
     options_list : {lang:"en", 
-                    submit:"Submit Article", 
-                    imagepage:"image.php", 
-                    textpage:"text.php", 
-                    maximg:10,
-                    callback:callback_sample},
+                    image_page:"image.php", 
+                    text_page:"text.php", 
+                    max_img:10,
+                    submit_callback:callback_fn},
 
     //jquery object
     editor : null,
@@ -333,7 +332,9 @@ jQuery.fn.mini_editor =
         {
             if (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete')
             {
+                $(this).mini_editor.add_title();
                 $(this).mini_editor.add_toolbar();
+                $(this).mini_editor.add_content();
                 $(this).mini_editor.add_submit();
                 script.onload = script.onreadystatechange = null;
             };
@@ -341,6 +342,23 @@ jQuery.fn.mini_editor =
         head.appendChild(script);
 
         return this;
+    },
+
+    add_title : function()
+    {
+        if (this.options_list["article_title"])
+        {
+            var title_html = "<div id=\"me_article_title\"><label>" + this.options_list["article_title"] + ": </label>";
+        }
+        else
+        {
+            var title_html = "<div id=\"me_article_title\"><label>" + contury_lang["article_title"] + ": </label>";
+        }
+        title_html = title_html + "<input type=\"text\" name=\"me_article_title_text\" id=\"me_article_title_text\"></div>";
+        var title_obj = $(title_html);
+
+        //add title_obj before the iframe
+        this.editor.before(title_obj);
     },
 
     add_toolbar : function()
@@ -412,15 +430,31 @@ jQuery.fn.mini_editor =
         this.editor.before(toolbar);
     },
 
-    add_submit : function()
+    add_content : function()
     {
-        if (this.options_list["Submit"])
+        if (this.options_list["article_content"])
         {
-            var submit_html = "<div><button type=\"button\">" + this.options_list["Submit"] + "</button></div>";
+            var content_html = "<div id=\"me_article_content\"><label>" + this.options_list["article_content"] + ": </label></div>";
         }
         else
         {
-            var submit_html = "<div><button type=\"button\">" + contury_lang["Submit"] + "</button></div>";
+            var content_html = "<div id=\"me_article_content\"><label>" + contury_lang["article_content"] + ": </label></div>";
+        }
+        var content_obj = $(content_html);
+
+        //add content_obj before the iframe
+        this.editor.before(content_obj);
+    },
+
+    add_submit : function()
+    {
+        if (this.options_list["submit_text"])
+        {
+            var submit_html = "<div id=\"me_submit_button\"><button type=\"button\">" + this.options_list["submit_text"] + "</button></div>";
+        }
+        else
+        {
+            var submit_html = "<div id=\"me_submit_button\"><button type=\"button\">" + contury_lang["submit_text"] + "</button></div>";
         }
         var submit_obj = $(submit_html);
         submit_obj.bind("click", this.submit_click);
@@ -714,7 +748,7 @@ jQuery.fn.mini_editor =
         var obj = $(this);
 
         //control the max number of the inserted image
-        if (obj.mini_editor.curr_img >= obj.mini_editor.options_list["maximg"])
+        if (obj.mini_editor.curr_img >= obj.mini_editor.options_list["max_img"])
         {
             alert("the current inserted image number is exceed the maximum!");
             return this;
@@ -745,9 +779,9 @@ jQuery.fn.mini_editor =
 
         //construct the action field into the post request
         var post_addr = $("#me_nwk_image_menu_form").attr("action");
-        if (obj.mini_editor.options_list["imagepage"] != null)
+        if (obj.mini_editor.options_list["image_page"] != null)
         {
-            post_addr = obj.mini_editor.options_list["imagepage"]
+            post_addr = obj.mini_editor.options_list["image_page"]
         }
         var post_addr = post_addr + "?" + "image_name=" + image_base_name;
         //add image name and timestamp to avoid submit repeadedly
@@ -1065,7 +1099,7 @@ jQuery.fn.mini_editor =
         //because the editor is a iframe, so we need get the html through DOM but not jquery
         var editor_html = obj.mini_editor.doc.body.innerHTML;
 
-        if (editor_html && obj.mini_editor.options_list["textpage"])
+        if (editor_html && obj.mini_editor.options_list["text_page"])
         {
             //construct the form object
             //var form_html = "<form method=\"post\" target=\"_self\"></form>";
@@ -1075,14 +1109,23 @@ jQuery.fn.mini_editor =
             form_obj.attr("name", form_name);
             //add timestamp to avoid submit repeadedly
             var now = new Date();
-            var post_addr = obj.mini_editor.options_list["textpage"] + "?" + "ts=" + now.getTime();
+            var post_addr = obj.mini_editor.options_list["text_page"] + "?" + "ts=" + now.getTime();
             form_obj.attr("action", post_addr);
             form_obj.attr("style", "display: none");
+
+            //construct the input object
+            var title_html = "<input>";
+            var title_obj = $(title_html);
+            var title_name = "me_" + obj.mini_editor.editor.attr("name") + "_title";
+            title_obj.attr("name", title_name);
+            var article_title = $("#me_article_title_text").val();
+            title_obj.val(article_title);
+            form_obj.append(title_obj);
 
             //construct the textarea object
             var text_html = "<textarea></textarea>";
             var text_obj = $(text_html);
-            var text_name = "me_" + obj.mini_editor.editor.attr("name") + "_textarea";
+            var text_name = "me_" + obj.mini_editor.editor.attr("name") + "_content";
             text_obj.attr("name", text_name);
             text_obj.html(editor_html);
             form_obj.append(text_obj);
@@ -1091,9 +1134,9 @@ jQuery.fn.mini_editor =
             obj.mini_editor.editor.after(form_obj);
 
             //exec the callback function
-            if (obj.mini_editor.options_list["callback"])
+            if (obj.mini_editor.options_list["submit_callback"])
             {
-                obj.mini_editor.options_list["callback"]();
+                obj.mini_editor.options_list["submit_callback"](form_obj);
             }
 
             //submit the form jquery object
@@ -1117,7 +1160,7 @@ jQuery.fn.mini_editor_create = function(options)
     return this;
 }
 
-function callback_sample()
+function callback_fn(form_obj)
 {
     return true;
 }

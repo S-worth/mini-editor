@@ -3,6 +3,7 @@
  */
 
 var contury_lang = [];
+
 contury_lang["Bold"] = "Bold";
 contury_lang["Italic"] = "Italic";
 contury_lang["Underline"] = "Underline";
@@ -27,4 +28,7 @@ contury_lang["column number"] = "column number";
 contury_lang["width"] = "width";
 contury_lang["height"] = "height";
 contury_lang["border"] = "border width";
-contury_lang["Submit"] = "Submit Article";
+
+contury_lang["submit_text"] = "Submit Article";
+contury_lang["article_title"] = "Article Title";
+contury_lang["article_content"] = "Article Content";

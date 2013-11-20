@@ -2,32 +2,38 @@
  * Create by weiganyi on 20131107
  */
 
-.me_toolbar
+#me_article_title_text
 {
+    width: 500px;
+}
+
+#me_toolbar
+{
+	position: relative;
 	background-color: white;
 }
 
-.me_toolbar a
+#me_toolbar a
 {
 	text-decoration: none;
 }
 
-.me_toolbar a:link
+#me_toolbar a:link
 {
 	color: black;
 }
 
-.me_toolbar a:visited
+#me_toolbar a:visited
 {
 	color: black;
 }
 
-.me_toolbar a:hover
+#me_toolbar a:hover
 {
 	color: black;
 }
 
-.me_toolbar a:active
+#me_toolbar a:active
 {
 	color: black;
 }
@@ -54,7 +60,7 @@
 	z-index: 99;
 
 	left: 100px;
-	top: 24px;		/*set it in order to connect with font_menu_head*/
+	top: 8px;		/*set it in order to connect with font_menu_head*/
 
 	list-style-type: none;
 	background-color: white;
@@ -87,8 +93,8 @@
 	position: absolute;
 	z-index: 99;
 
-	left: 330px;
-	top: 40px;		/*set it in order to connect with font_menu_head*/
+	left: 320px;
+	top: 24px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
@@ -124,8 +130,8 @@
 	position: absolute;
 	z-index: 99;
 
-	left: 330px;
-	top: 40px;		/*set it in order to connect with font_menu_head*/
+	left: 350px;
+	top: 24px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
@@ -180,8 +186,8 @@
 	position: absolute;
 	z-index: 99;
 
-	left: 380px;
-	top: 40px;		/*set it in order to connect with font_menu_head*/
+	left: 400px;
+	top: 24px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
@@ -221,8 +227,8 @@
 	position: absolute;
 	z-index: 99;
 
-	left: 410px;
-	top: 40px;		/*set it in order to connect with font_menu_head*/
+	left: 430px;
+	top: 24px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
