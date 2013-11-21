@@ -1141,8 +1141,7 @@ jQuery.fn.mini_editor =
         if (editor_html && obj.mini_editor.options_list["text_page"])
         {
             //construct the form object
-            //var form_html = "<form method=\"post\" target=\"_self\"></form>";
-            var form_html = "<form method=\"post\" target=\"_blank\"></form>";
+            var form_html = "<form method=\"post\" target=\"_self\"></form>";
             var form_obj = $(form_html);
             var form_name = "me_" + obj.mini_editor.editor.attr("name") + "_form";
             form_obj.attr("name", form_name);
