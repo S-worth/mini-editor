@@ -38,9 +38,14 @@
 	color: black;
 }
 
+img
+{
+    border: none;
+}
+
 .me_command
 {
-	padding: 8px 0px 0px 0px;	/*top right bottom left*/
+	padding: 4px 0px 0px 0px;	/*top right bottom left*/
 	border-width: 1px;
 	border-style: none;
 }
@@ -60,7 +65,7 @@
 	z-index: 99;
 
 	left: 100px;
-	top: 8px;		/*set it in order to connect with font_menu_head*/
+	top: 7px;		/*set it in order to connect with font_menu_head*/
 
 	list-style-type: none;
 	background-color: white;
@@ -94,7 +99,7 @@
 	z-index: 99;
 
 	left: 320px;
-	top: 24px;		/*set it in order to connect with font_menu_head*/
+	top: 23px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
@@ -131,7 +136,7 @@
 	z-index: 99;
 
 	left: 350px;
-	top: 24px;		/*set it in order to connect with font_menu_head*/
+	top: 23px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
@@ -187,7 +192,7 @@
 	z-index: 99;
 
 	left: 400px;
-	top: 24px;		/*set it in order to connect with font_menu_head*/
+	top: 23px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;
@@ -228,7 +233,7 @@
 	z-index: 99;
 
 	left: 430px;
-	top: 24px;		/*set it in order to connect with font_menu_head*/
+	top: 23px;		/*set it in order to connect with font_menu_head*/
 
 	background-color: white;
 	border-style: solid;

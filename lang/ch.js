@@ -19,7 +19,7 @@ contury_lang["RemoveFormat"] = "清除格式";
 contury_lang["Title"] = "标题";
 contury_lang["Text"] = "正文";
 contury_lang["picture address"] = "图片地址";
-contury_lang["Insert"] = "插入";
+contury_lang["InsertImage"] = "插入图片";
 contury_lang["Clear"] = "清空";
 contury_lang["Upload"] = "上传";
 contury_lang["Delete"] = "删除";
@@ -28,6 +28,7 @@ contury_lang["column number"] = "列数";
 contury_lang["width"] = "宽度";
 contury_lang["height"] = "高度";
 contury_lang["border"] = "边框大小";
+contury_lang["InsertTable"] = "插入表格";
 
 contury_lang["submit_text"] = "提交文章";
 contury_lang["article_title"] = "文章标题";

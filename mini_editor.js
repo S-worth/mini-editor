@@ -58,7 +58,7 @@ var TOOLBAR_HTML = " \
     </tr> \
     <tr class=\"me_host_image_menu_row\"> \
         <td class=\"me_host_image_menu_cell_left\"> \
-            <input type=\"button\" id=\"me_host_image_menu_insert\"/ value=\"Insert\"></td> \
+            <input type=\"button\" id=\"me_host_image_menu_insert\"/ value=\"InsertImage\"></td> \
         <td class=\"me_host_image_menu_cell_right\"> \
             <input type=\"button\" id=\"me_host_image_menu_clear\"/ value=\"Clear\"></td> \
     </tr> \
@@ -246,7 +246,7 @@ var TOOLBAR_HTML = " \
         <td class=\"me_table_menu_cell_right\"><input type=\"text\" id=\"me_table_menu_border\" style=\"width:100px;\"/></td> \
     </tr> \
     <tr class=\"me_table_menu_row\"> \
-        <td class=\"me_table_menu_cell_left\"><input type=\"button\" id=\"me_table_menu_insert\"/ value=\"Insert\"></td> \
+        <td class=\"me_table_menu_cell_left\"><input type=\"button\" id=\"me_table_menu_insert\"/ value=\"InsertTable\"></td> \
         <td class=\"me_table_menu_cell_right\"><input type=\"button\" id=\"me_table_menu_clear\"/ value=\"Clear\"></td> \
     </tr> \
 </table> \
@@ -333,8 +333,8 @@ jQuery.fn.mini_editor =
             if (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete')
             {
                 $(this).mini_editor.add_title();
-                $(this).mini_editor.add_toolbar();
                 $(this).mini_editor.add_content();
+                $(this).mini_editor.add_toolbar();
                 $(this).mini_editor.add_submit();
                 script.onload = script.onreadystatechange = null;
             };
@@ -371,6 +371,9 @@ jQuery.fn.mini_editor =
 
         //decorate the font menu link
         this.decorate_font_menu_link(toolbar);
+
+        //fix the menu position for IE broswer
+        this.fix_menu_position(toolbar);
 
         //register event function
         //me_command event
@@ -501,8 +504,8 @@ jQuery.fn.mini_editor =
 
             replace_value = contury_lang["picture address"];
             toolbar_html = toolbar_html.replace(/picture address/g, replace_value);
-            replace_value = contury_lang["Insert"];
-            toolbar_html = toolbar_html.replace(/Insert/g, replace_value);
+            replace_value = contury_lang["InsertImage"];
+            toolbar_html = toolbar_html.replace(/InsertImage/g, replace_value);
             replace_value = contury_lang["Clear"];
             toolbar_html = toolbar_html.replace(/Clear/g, replace_value);
 
@@ -519,6 +522,8 @@ jQuery.fn.mini_editor =
             toolbar_html = toolbar_html.replace(/height: /g, replace_value);
             replace_value = contury_lang["border"] + ": ";
             toolbar_html = toolbar_html.replace(/border: /g, replace_value);
+            replace_value = contury_lang["InsertTable"];
+            toolbar_html = toolbar_html.replace(/InsertTable/g, replace_value);
         }
 
         return toolbar_html;
@@ -539,6 +544,29 @@ jQuery.fn.mini_editor =
                 var str_size = String(Number(font_size)*2+10) + "px";
                 obj.css("font-size", str_size);
             }
+        }
+
+        return this;
+    },
+
+    fix_menu_position : function(toolbar)
+    {
+        if (toolbar && this.is_msie == true)
+        {
+            var font_menu_link = toolbar.find("#me_font_menu_list");
+            font_menu_link.css({left: "40px", top: "25px"});
+
+            var font_menu_link = toolbar.find("#me_host_image_menu_table");
+            font_menu_link.css({left: "300px", top: "25px"});
+
+            var font_menu_link = toolbar.find("#me_nwk_image_menu_table");
+            font_menu_link.css({left: "330px", top: "25px"});
+
+            var font_menu_link = toolbar.find("#me_emoticon_menu_table");
+            font_menu_link.css({left: "380px", top: "25px"});
+
+            var font_menu_link = toolbar.find("#me_table_menu_table");
+            font_menu_link.css({left: "400px", top: "25px"});
         }
 
         return this;
@@ -859,11 +887,22 @@ jQuery.fn.mini_editor =
 
         //get the image src and insert it into the document
         //obj.mini_editor.img_src["test.jpg"] = "http://192.168.1.120/test.jpg";
-        var img_name = obj.text();
-        if (obj.mini_editor.img_src[img_name])
+
+        var image_path = obj.text();
+        var last = image_path.lastIndexOf("\\");
+        if (last)
+        {
+            var image_base_name = image_path.substring(last+1, image_path.length);
+        }
+        else
+        {
+            var image_base_name = image_path;
+        }
+
+        if (obj.mini_editor.img_src[image_base_name])
         {
             win.focus();
-            doc.execCommand("InsertImage", false, obj.mini_editor.img_src[img_name]);
+            doc.execCommand("InsertImage", false, obj.mini_editor.img_src[image_base_name]);
             win.focus();
         }
 
@@ -1127,7 +1166,7 @@ jQuery.fn.mini_editor =
             var text_obj = $(text_html);
             var text_name = "me_" + obj.mini_editor.editor.attr("name") + "_content";
             text_obj.attr("name", text_name);
-            text_obj.html(editor_html);
+            text_obj.val(editor_html);
             form_obj.append(text_obj);
 
             //add form_obj after the iframe
