@@ -34,3 +34,4 @@ After do above steps, the editor can work in your html page.<br/>
 Design
 =====
 Please refer to my blog(Chinese):<br/>
+http://blog.csdn.net/weiganyi/article/details/16881213<br/>
