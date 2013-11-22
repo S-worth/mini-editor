@@ -10,9 +10,13 @@ images - toolbar icon<br/>
 images/emoticons - emoticon icon in toolbar<br/>
 lang - contury language definition in GUI<br/>
 
+Run
+=====
+You can open the test.html in web browser, it will show the appearance of the web editor.<br/>
+
 Usage
 =====
-1、First you need link the jquery and mini_editor files into your html page:<br/>
+First you need link the jquery and mini_editor files into your html page:<br/>
 \<script type="text/javascript" src="jquery-1.10.1.js"\>\</script\><br/>
 \<link type="text/css" rel="stylesheet" href="mini_editor.css"/\><br/>
 \<script type="text/javascript" src="mini_editor.js"\>\</script\><br/>
@@ -30,8 +34,6 @@ Third you need set a javasript fragment under the frame html:<br/>
 \</script\><br/>
 
 After do above steps, the editor can work in your html page.<br/>
-
-2、You can open the test.html in web browser, it will show the appearance of the web editor.<br/>
 
 Design
 =====
