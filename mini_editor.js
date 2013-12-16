@@ -260,8 +260,10 @@ jQuery.fn.mini_editor =
     options_list : {lang:"en", 
                     image_page:"image.php", 
                     text_page:"text.php", 
+                    base_url:null, 
                     max_img:10,
-                    submit_callback:callback_fn},
+                    load_callback:fn_load_callback,
+                    submit_callback:fn_submit_callback},
 
     //jquery object
     editor : null,
@@ -325,18 +327,30 @@ jQuery.fn.mini_editor =
         //import the contury js
         var head = document.getElementsByTagName("head")[0];
         var script = document.createElement("script");
-        script.src = "lang/"  + this.options_list["lang"] + ".js";
+        if (this.options_list["base_url"])
+        {
+            script.src = this.options_list["base_url"] + "/";
+        }
+        script.src = script.src + "lang/"  + this.options_list["lang"] + ".js";
         script.charset = "UTF-8";
         script.type = "text/javascript";
         script.onload = script.onreadystatechange = function ()
         {
             if (!script.readyState || script.readyState === 'loaded' || script.readyState === 'complete')
             {
-                $(this).mini_editor.add_title();
-                $(this).mini_editor.add_content();
-                $(this).mini_editor.add_toolbar();
-                $(this).mini_editor.add_submit();
+                //this change to "lang/en.js"
+                var obj = $(this);
+                obj.mini_editor.add_title();
+                obj.mini_editor.add_content();
+                obj.mini_editor.add_toolbar();
+                obj.mini_editor.add_submit();
                 script.onload = script.onreadystatechange = null;
+
+                //exec the load callback function
+                if (obj.mini_editor.options_list["load_callback"])
+                {
+                    obj.mini_editor.options_list["load_callback"](obj);
+                }
             };
         };
         head.appendChild(script);
@@ -374,6 +388,9 @@ jQuery.fn.mini_editor =
 
         //fix the menu position for IE broswer
         this.fix_menu_position(toolbar);
+
+        //fix the picture address
+        this.fix_pic_addr(toolbar);
 
         //register event function
         //me_command event
@@ -572,6 +589,26 @@ jQuery.fn.mini_editor =
         return this;
     },
 
+    fix_pic_addr : function(toolbar)
+    {
+        if (toolbar && this.options_list["base_url"])
+        {
+            var img_list = toolbar.find("img");
+            var img_number = img_list.length;
+            for (var idx=0; idx<img_number; idx++)
+            {
+                //convert html fragment to jquery object
+                var obj = $(img_list[idx]);
+                var src = obj.attr("src");
+                //add the base url into the src of the img
+                src = src.replace(/images/gi, this.options_list["base_url"]+"/images");
+                obj.attr("src", src);
+            }
+        }
+
+        return this;
+    },
+
     command_mouseenter : function()
     {
         var obj = $(this);
@@ -750,20 +787,20 @@ jQuery.fn.mini_editor =
     host_image_menu_frame_load : function()
     {
         //here return temporarily
-        return this;
+        //return this;
 
         //because this is a iframe, so we need get the html through DOM but not jquery
         var doc = this.contentWindow.document;
         var html = doc.body.innerHTML;
 
         //save the image src that came from the server
-        var image_name = html.match(/image_name=(.*)/g);
-        if (image_name != null)
+        var image_name = html.match(/image_name=(.+)&/);
+        if (image_name != null && image_name[1] != null)
         {
-            var image_src = html.match(/image_src=(.*)/g);
-            if (image_src != null)
+            var image_src = html.match(/image_src=(.+)/);
+            if (image_src != null && image_src[1] != null)
             {
-                if (obj.mini_editor.img_src[image_name[1]])
+                if (!obj.mini_editor.img_src[image_name[1]])
                 {
                     obj.mini_editor.img_src[image_name[1]] = image_src[1];
                 }
@@ -814,10 +851,18 @@ jQuery.fn.mini_editor =
         {
             post_addr = obj.mini_editor.options_list["image_page"]
         }
-        var post_addr = post_addr + "?" + "image_name=" + image_base_name;
+        if (post_addr.search(/\?/g) != -1)
+        {
+            post_addr = post_addr + "&" + "image_name=" + image_base_name;
+        }
+        else
+        {
+            post_addr = post_addr + "?" + "image_name=" + image_base_name;
+        }
+        post_addr = post_addr + "&" + "action=" + "add";
         //add image name and timestamp to avoid submit repeadedly
         var now = new Date();
-        var post_addr = post_addr + "ts=" + now.getTime();
+        post_addr = post_addr + "&" + "ts=" + now.getTime();
         $("#me_host_image_menu_form").attr("action", post_addr);
 
         //submit the form
@@ -826,7 +871,7 @@ jQuery.fn.mini_editor =
         //display the image into the list
         var image_tr = "<tr class=\"me_host_image_menu_row\"></tr>";
         var image_html = "<td class=\"me_host_image_menu_cell_left\"><a href=\"#\" class=\"me_host_image_menu_label_link\">" 
-                    + image_path 
+                    + image_base_name 
                     + "</a></td>";
         var image_insert = "<td class=\"me_host_image_menu_cell_right\"><a href=\"#\" class=\"me_host_image_menu_delete_link\">"
                     + contury_lang["Delete"]
@@ -934,17 +979,55 @@ jQuery.fn.mini_editor =
                 var image_label_obj = image_tr_obj.children(".me_host_image_menu_cell_left");
                 if (image_label_obj)
                 {
-                    var image_path = image_label_obj.children("a").text();
+                    var image_name = image_label_obj.children("a").text();
 
-                    //delete the img src item
-                    if (image_path)
+                    //delete the image address item
+                    if (image_name)
                     {
-                        delete obj.mini_editor.img_src[image_path];
+                        //record the background image name
+                        var image_src = obj.mini_editor.img_src[image_name];
+                        var last = image_src.lastIndexOf("/");
+                        if (last)
+                        {
+                            var image_background_name = image_src.substring(last+1, image_src.length);
+                        }
+                        else
+                        {
+                            var image_background_name = image_src;
+                        }
+
+                        delete obj.mini_editor.img_src[image_name];
                         obj.mini_editor.curr_img--;
                     }
                 }
 
+                //delete the image item from the image list
                 image_tr_obj.remove();
+
+                //invoke ajax to delete the image at the background
+                if (obj.mini_editor.options_list["image_page"] != null)
+                {
+                    var del_url = obj.mini_editor.options_list["image_page"]
+                }
+                if (del_url.search(/\?/g) != -1)
+                {
+                    del_url = del_url + "&" + "image_name=" + image_background_name;
+                }
+                else
+                {
+                    del_url = del_url + "?" + "image_name=" + image_background_name;
+                }
+                del_url = del_url + "&" + "action=" + "delete";
+                //add image name and timestamp to avoid submit repeadedly
+                var now = new Date();
+                del_url = del_url + "&" + "ts=" + now.getTime();
+
+                jQuery.ajax({
+                    type: "GET",
+                    url: del_url,
+                    data: null,
+                    dateType: "html"
+                });
             }
         }
 
@@ -1144,13 +1227,22 @@ jQuery.fn.mini_editor =
         if (editor_html && obj.mini_editor.options_list["text_page"])
         {
             //construct the form object
+            //var form_html = "<form method=\"post\" target=\"_self\"></form>";
             var form_html = "<form method=\"post\" target=\"_self\"></form>";
             var form_obj = $(form_html);
             var form_name = "me_" + obj.mini_editor.editor.attr("name") + "_form";
             form_obj.attr("name", form_name);
             //add timestamp to avoid submit repeadedly
             var now = new Date();
-            var post_addr = obj.mini_editor.options_list["text_page"] + "?" + "ts=" + now.getTime();
+            var test_page = obj.mini_editor.options_list["text_page"];
+            if (test_page.search(/\?/g) != -1)
+            {
+                var post_addr = test_page + "&" + "ts=" + now.getTime();
+            }
+            else
+            {
+                var post_addr = test_page + "?" + "ts=" + now.getTime();
+            }
             form_obj.attr("action", post_addr);
             form_obj.attr("style", "display: none");
 
@@ -1174,7 +1266,7 @@ jQuery.fn.mini_editor =
             //add form_obj after the iframe
             obj.mini_editor.editor.after(form_obj);
 
-            //exec the callback function
+            //exec the submit callback function
             if (obj.mini_editor.options_list["submit_callback"])
             {
                 obj.mini_editor.options_list["submit_callback"](form_obj);
@@ -1201,7 +1293,12 @@ jQuery.fn.mini_editor_create = function(options)
     return this;
 }
 
-function callback_fn(form_obj)
+function fn_load_callback(obj)
+{
+    return true;
+}
+
+function fn_submit_callback(form_obj)
 {
     return true;
 }
