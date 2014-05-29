@@ -2,7 +2,7 @@
  * Create by weiganyi on 20131115
  */
 
-var contury_lang = [];
+var contury_lang = {};
 
 contury_lang["Bold"] = "粗体"
 contury_lang["Italic"] = "斜体";
